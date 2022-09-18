@@ -16,4 +16,3 @@ def iterations(e,imax,x0,x1): # e окрестность,imax наибольше
     print('root ',x)
     print('iterations ',i)
 iterations(0.0001,10000,0,3)
-    
