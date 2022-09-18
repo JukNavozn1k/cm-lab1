@@ -15,4 +15,4 @@ def iterations(e,imax,x0,x1): # e окрестность,imax наибольше
             break
     print('root ',x)
     print('iterations ',i)
-iterations(0.0001,10000,0,3)
+iterations(0.001,100,0,3)
