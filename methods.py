@@ -33,4 +33,4 @@ def combined(a,b,e):  # a начало, b конец,e окрестность
         break
     x = (a+b)/2
    print('root ',x)
-iterations(0,10,0.000001)
+combined(0,10,0.000001)
