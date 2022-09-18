@@ -3,29 +3,30 @@ from telnetlib import theNULL
 
 
 def localizateOne(f, df, a, b, pogr):
-    intervals = [[a, f(a)], [b, f(b)]]
-    if intervals[0][1] == 0:
-        answer = a
-    flag = False
-    while intervals[0][0] > pogr / 8:
-        for i in range(1, len(intervals)):
-            if intervals[i][1] == 0:
-                answer = 0
-                Flag = True
+    pointsXY = [[a, f(a)], [b, f(b)]]
+    if pointsXY[0][1] == 0:
+        return [a, a]
+    numberOfPoints = 2
+    while pointsXY[0][0] > pogr / 8:
+        i = 1
+        while i < numberOfPoints:
+            if pointsXY[i][1] == 0: # Проверка, вдруг новая точка является корнем
+                return [pointsXY[i][0], pointsXY[i][0]]
+            elif pointsXY[i][1] * pointsXY[i - 1][1] < 0: # Проверка, есть ли в интервале нечётное число корней
+                pointsXY = pointsXY[i - 1] + pointsXY[i] # если да, то удаляем остальные интервалы
+                numberOfPoints = 2
                 break
-            elif intervals[i][1] * intervals[i - 1][1] < 0:
-                intervals = intervals[i - 1] + intervals[i]
-                Flag = True
-                break
-            else:
-                newPoint = [intervals[i - 1][0] + intervals[i][0] / 2]
+                if df(pointsXY[0][0]) * df(pointsXY[1][0]) > 0: # Мож, >=?    ???
+                    return [pointsXY[0][0], pointsXY[1][0]] # возвращает в виде списка интервал с корнем
+            else: # дальше дробим интервалы
+                newPoint = [pointsXY[i - 1][0] + pointsXY[i][0] / 2]
                 newPoint.append(f(newPoint[0])) 
-                intervals = intervals[:i] + newPoint + intervals[i:]
-        if Flag == True:
-            break
+                pointsXY = pointsXY[:i] + newPoint + pointsXY[i:]
+                numberOfPoints += 1
+                i += 2
     else:
         return 'Корень не локализован'
-    return [intervals[0][0], intervals[1][0]]
+    return [pointsXY[0][0], pointsXY[1][0]] # возвращает в виде списка интервал с корнем 
 
     
         
