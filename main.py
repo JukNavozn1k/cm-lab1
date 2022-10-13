@@ -1,34 +1,45 @@
-from math import *
-from telnetlib import theNULL
-
-
-def localizateOne(f, df, a, b, pogr):
-    pointsXY = [[a, f(a)], [b, f(b)]]
-    if pointsXY[0][1] == 0:
-        return [a, a]
-    numberOfPoints = 2
-    while pointsXY[0][0] > pogr / 8:
-        i = 1
-        while i < numberOfPoints:
-            if pointsXY[i][1] == 0: # Проверка, вдруг новая точка является корнем
-                return [pointsXY[i][0], pointsXY[i][0]]
-            elif pointsXY[i][1] * pointsXY[i - 1][1] < 0: # Проверка, есть ли в интервале нечётное число корней
-                pointsXY = pointsXY[i - 1] + pointsXY[i] # если да, то удаляем остальные интервалы
-                numberOfPoints = 2
-                break
-                if df(pointsXY[0][0]) * df(pointsXY[1][0]) > 0: # Мож, >=?    ???
-                    return [pointsXY[0][0], pointsXY[1][0]] # возвращает в виде списка интервал с корнем
-            else: # дальше дробим интервалы
-                newPoint = [pointsXY[i - 1][0] + pointsXY[i][0] / 2]
-                newPoint.append(f(newPoint[0])) 
-                pointsXY = pointsXY[:i] + newPoint + pointsXY[i:]
-                numberOfPoints += 1
-                i += 2
-    else:
-        return 'Корень не локализован'
-    return [pointsXY[0][0], pointsXY[1][0]] # возвращает в виде списка интервал с корнем 
-
+def f(x): # функция
+    return (x-5)**2
+def d1(x): # первая производная
+    return 2*x -10 
+def d2(x): # вторая производная
+    return 2
+def fi(x): # эквивалентная функция фи(х)
+    return (-25-(x**2))/-10
+# метод простых итераций для решения нелинейных уравнений
+def iterations(x0,x1,e,imax=1000): # e окрестность,imax наибольшее количество итераций x0 начало отрезка x1 конец отрезка
     
-        
-        
+    i = 0
+    x = fi(x0)
+    while True:
+        i = i + 1   
+        x0 = x
+        x = fi(x)
+        if ((abs(x-x0) < e) and (i > imax)) or x0 > x1:
+            break
+    return x
+# комбинированный метод решения нелинейных уравнений
+def combined(a,b,e):  # a начало, b конец,e окрестность
+   while True:
+    if f(a) * d2(a) < 0:
+        a = a - (f(a)*(a-b))/(f(a)-f(b))
+    else:
+        a = a - f(a)/d1(a)
+    if f(b) * d2(b) < 0:
+        b = b - (f(b)*(b-a))/(f(b)-f(a))
+    else:
+        b = b - f(b)/d1(b)
+    if abs(a-b) <= 2*e:
+        break
+    x = (a+b)/2
+   return x
 
+#инициализация параметров
+a,b = 0,0.9
+
+
+# вывод интерфейса
+print('Equation: 3*x-cos(x)+0,1=0')
+print('Interval: [0;0,9]')
+print('dy/dx: sin(x) + 3')
+print('d^2y/dx^2: cos(x)')
