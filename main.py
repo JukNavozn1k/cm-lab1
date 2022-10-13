@@ -1,14 +1,14 @@
+from math import sin,cos
 def f(x): # функция
-    return (x-5)**2
+    return 3*x-cos(x)+0.1
 def d1(x): # первая производная
-    return 2*x -10 
+    return sin(x) + 3
 def d2(x): # вторая производная
-    return 2
+    return cos(x)
 def fi(x): # эквивалентная функция фи(х)
-    return (-25-(x**2))/-10
+    return (cos(x)-0.1) / 3 
 # метод простых итераций для решения нелинейных уравнений
 def iterations(x0,x1,e,imax=1000): # e окрестность,imax наибольшее количество итераций x0 начало отрезка x1 конец отрезка
-    
     i = 0
     x = fi(x0)
     while True:
@@ -43,3 +43,15 @@ print('Equation: 3*x-cos(x)+0,1=0')
 print('Interval: [0;0,9]')
 print('dy/dx: sin(x) + 3')
 print('d^2y/dx^2: cos(x)')
+
+# решение уравнения 2-мя способами
+iterations_solution = iterations(a,b,0.00001)
+combined_solution = combined(a,b,0.00001)
+
+# вывод решений
+print('Combined solution: ', combined_solution)
+print('Iterations solution: ', iterations_solution)
+# вывод округлённых решений
+print('Rounded combined: ',round(combined_solution,4))
+print('Rounded iterations: ',round(iterations_solution,4))
+
