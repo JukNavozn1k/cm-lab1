@@ -1,3 +1,5 @@
+import numpy as np
+import matplotlib.pyplot as plt
 from math import sin,cos
 def f(x): # функция
     return 3*x-cos(x)+0.1
@@ -6,13 +8,13 @@ def d1(x): # первая производная
 def d2(x): # вторая производная
     return cos(x)
 def fi(x): # эквивалентная функция фи(х)
-    return (cos(x)-0.1) / 3 
+    return (cos(x)-0.1) / 3
 # метод простых итераций для решения нелинейных уравнений
 def iterations(x0,x1,e,imax=1000): # e окрестность,imax наибольшее количество итераций x0 начало отрезка x1 конец отрезка
     i = 0
     x = fi(x0)
     while True:
-        i = i + 1   
+        i = i + 1
         x0 = x
         x = fi(x)
         if ((abs(x-x0) < e) and (i > imax)) or x0 > x1:
@@ -55,3 +57,19 @@ print('Iterations solution: ', iterations_solution)
 print('Rounded combined: ',round(combined_solution,4))
 print('Rounded iterations: ',round(iterations_solution,4))
 
+
+
+# график
+x = np.arange(-10,10, 0.00001)
+
+# отключаем
+
+
+#subplot 4
+sp = plt.subplot()
+plt.plot(x, 3*x-np.cos(x)  + 0.1)
+sp.spines['left'].set_position('center')
+sp.spines['bottom'].set_position('center')
+plt.title(r'$f(x) =  3*x-cos(x)+0,1$')
+
+plt.show()
