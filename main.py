@@ -17,7 +17,7 @@ def fi(x): # эквивалентная функция фи(х)
 def iterations(x0,x1,e,imax=100): # e окрестность,imax наибольшее количество итераций x0 начало отрезка x1 конец отрезка
     i = 0
     x = fi(x0)
-    print('=====================================')
+    print('===============================================================================================================')
     print('Iterations method')
     print('function =  3*x-cos(x)+0,1=0')
     print('fi = (cos(x)-0.1) / 3')
@@ -26,7 +26,6 @@ def iterations(x0,x1,e,imax=100): # e окрестность,imax наиболь
     col_names = ["Iteration", "x","fi(x)","delta"]
     data = []
     while True:
-
         i = i + 1
         x0 = x
         x = fi(x)
@@ -37,7 +36,7 @@ def iterations(x0,x1,e,imax=100): # e окрестность,imax наиболь
     print('Iterations solution:', x)
 # комбинированный метод решения нелинейных уравнений
 def combined(a,b,e):  # a начало, b конец,e окрестность
-   print('=====================================')
+   print('===============================================================================================================')
    print('Combined Method')
    print('f(x) = 3*x-cos(x)+0,1')
    print('dy/dx: sin(x) + 3')
@@ -49,7 +48,6 @@ def combined(a,b,e):  # a начало, b конец,e окрестность
    i = 0
    xa,xb = a,b
    while True:
-    if i == 0: data.append([i,xa,f(xa),xb,f(xb),abs(xa-xb)])
     i = i + 1
     if f(a) * d2(a) < 0:
         a = a - (f(a)*(a-b))/(f(a)-f(b))
@@ -75,7 +73,6 @@ def combined(a,b,e):  # a начало, b конец,e окрестность
 
 #инициализация параметров
 a,b = 0,0.9
-
 # решение уравнения 2-мя способами
 iterations(a,b,0.00001)
 combined(a,b,0.000001)
@@ -85,7 +82,7 @@ x = np.arange(-10,10, 0.01)
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
 plt.plot(x,3*x-np.cos(x)+0.1,label='f(x) = 3x-cos(x) + 0.1')
-
+fig.canvas.manager.set_window_title('Graph')
 
 #  Устанавливаем интервал основных и
 #  вспомогательных делений:
@@ -107,6 +104,6 @@ ax.grid(which='minor',
 
 fig.set_figwidth(12)
 fig.set_figheight(8)
-plt.title('f(X) = 3*x - cos(x) + 0.1')
+plt.title('f(x) = 3*x - cos(x) + 0.1')
 plt.show()
 
