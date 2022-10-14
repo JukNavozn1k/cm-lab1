@@ -76,12 +76,6 @@ def combined(a,b,e):  # a начало, b конец,e окрестность
 #инициализация параметров
 a,b = 0,0.9
 
-# вывод интерфейса
-print('Equation: 3*x-cos(x)+0,1=0')
-print('Interval: [0;0,9]')
-print('dy/dx: sin(x) + 3')
-print('d^2y/dx^2: cos(x)')
-
 # решение уравнения 2-мя способами
 iterations(a,b,0.00001)
 combined(a,b,0.000001)
