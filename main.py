@@ -86,8 +86,8 @@ fig.canvas.manager.set_window_title('Graph')
 
 #  Устанавливаем интервал основных и
 #  вспомогательных делений:
-ax.xaxis.set_major_locator(ticker.MultipleLocator(2))
-ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
+#ax.xaxis.set_major_locator(ticker.MultipleLocator(2))
+#ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
 
 
 #  Добавляем линии основной сетки:
